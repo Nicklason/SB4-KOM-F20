@@ -2,11 +2,15 @@ package dk.sdu.mmmi.cbse.entities;
 
 import java.util.Random;
 
+import dk.sdu.mmmi.cbse.gamestates.PlayState;
+
 public class Enemy extends Player {  
   private Random random;
+  private PlayState playState;
 
-  public Enemy() {
+  public Enemy(PlayState playState) {
     random = new Random();
+    this.playState = playState;
   }
 
   public void update(float dt) {
@@ -24,6 +28,10 @@ public class Enemy extends Player {
       this.setUp(false);
       this.setRight(false);
       this.setLeft(true);
+    }
+
+    if (randomFloat >= 0.99) {
+      this.playState.addBullet(new Bullet(x, y, radians));
     }
     
     super.update(dt);
